@@ -75,7 +75,7 @@ export async function getCacheConfig(): Promise<CacheConfig> {
 
   return {
     paths: [
-      path.join(cargoHome, "bin"),
+      // path.join(cargoHome, "bin"),
       path.join(cargoHome, ".crates2.json"),
       path.join(cargoHome, ".crates.toml"),
       paths.git,

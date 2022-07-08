@@ -61664,7 +61664,7 @@ async function getCacheConfig() {
     key += await getRustKey();
     return {
         paths: [
-            external_path_default().join(cargoHome, "bin"),
+            // path.join(cargoHome, "bin"),
             external_path_default().join(cargoHome, ".crates2.json"),
             external_path_default().join(cargoHome, ".crates.toml"),
             paths.git,
@@ -61678,7 +61678,7 @@ async function getCacheConfig() {
 }
 async function getCargoBins() {
     try {
-        const { installs } = JSON.parse(await external_fs_default().promises.readFile(external_path_default().join(paths.cargoHome, ".crates2.json"), "utf8"));
+        const { installs } = JSON.parse(await fs.promises.readFile(path.join(paths.cargoHome, ".crates2.json"), "utf8"));
         const bins = new Set();
         for (const pkg of Object.values(installs)) {
             for (const bin of pkg.bins) {
@@ -61824,8 +61824,8 @@ async function run() {
         core.exportVariable("CACHE_ON_FAILURE", cacheOnFailure);
         core.exportVariable("CARGO_INCREMENTAL", 0);
         const { paths, key, restoreKeys } = await getCacheConfig();
-        const bins = await getCargoBins();
-        core.saveState(stateBins, JSON.stringify([...bins]));
+        // const bins = await getCargoBins();
+        // core.saveState(stateBins, JSON.stringify([...bins]));
         core.info(`Restoring paths:\n    ${paths.join("\n    ")}`);
         core.info(`In directory:\n    ${process.cwd()}`);
         core.info(`Using keys:\n    ${[key, ...restoreKeys].join("\n    ")}`);
